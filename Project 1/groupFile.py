@@ -195,6 +195,52 @@ class BankAccount:
         return True
     return False
 
+   # Deposits money into the account if the transaction is valid and records the transaction
+   #@param amount: the amount to be deposited
+   #@require amount is a number
+   #@return The success or failure of the deposit
+   def deposit(self, amount):
+       # Make sure the amount to deposit is not negative
+       if isinstance(amount, float) and amount > 0:
+           # Process the transaction and update necessary variables
+           depositTransaction = Transaction("deposit", amount)
+           self._accountTransactions.append(depositTransaction)
+           self.balance += amount
+           return True
+       # If anything was wrong with the amount parameter the transaction will be rejected
+       return False
+
+   # Withdrawals money from the account if the transaction is valid and records the transaction; 
+   # If the transaction is valid but the account will be overdrawn, applies an overdraft fee and 
+   # updates the counter for overdraws
+   #@param amount: the amount to be withdrawn
+   #@require amount > 0
+   #@return The success or failure of the withdrawal
+   def withdrawal(self, amount):
+       # Make sure the amount to withdrawal is not negative
+       if isinstance(amount, float) and amount <= 0:
+           print("Transaction denied.")
+       # Ensure the balance is at least $250 more than the withdrawal amount
+       if isinstance(amount, float) and amount < self.balance + 250.0:
+           # Process the transaction and update necessary variables
+           withdrawalTransaction = Transaction("withdrawal", amount)
+           self._accountTransactions.append(withdrawalTransaction)
+           self.balance -= amount
+           # If the withdrawal would put the balance in the negative, add an
+           # overdraft fee and increment the overdrawn counter
+           if self.balance < 0.0:
+               # Process the transaction and update necessary variables
+               self.balance -= self.getOverdraft()
+               penaltyTransaction = Transaction("penalty", self.getOverdraft())
+               self._accountTransactions.append(penaltyTransaction)
+               self._overdrawnCount = self.getOverdrawnCount() + 1
+               #self.overdrawnCount += 1
+               print("The account is overdrawn")
+           return True
+       # If the amount parameter was anything other than a number the transaction will be rejected
+       else:
+           print("Transaction denied")
+       return False
 # test = BankAccount("Sara", "Mathews", 100.0)
 #print(test.transactionList())
 #print(test)
