@@ -179,6 +179,13 @@ class BankAccount:
             self.balance += interest_amount
             return True
         return False
+   
+   # Transfer an amount of money from one account to anotherS
+   def transfer(self, amount, otherAccount):
+    if self.withdraw(amount):
+        otherAccount.deposit(amount)
+        return True
+    return False
 
 # test = BankAccount("Sara", "Mathews", 100.0)
 #print(test.transactionList())
