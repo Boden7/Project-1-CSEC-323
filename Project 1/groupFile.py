@@ -3,13 +3,6 @@
 #  This module defines the BankAccount class.
 #  A class to represent the data elements and methods required to implement a bank account.
 
-# TO DO
-# getAccountNumber and NextAccountGetterAndUpdate don't work because I am unsure how to "reset" instances to get everything back to account number 1,000
-# We need to add a tester for getOverdrawn when the overdrawn counter is greater than 0
-# We need to add testers for non-empty Transaction Lists (both BankAccount and TransactionList)
-# We need to add an __eq__ method for both Transaction and BankAccount, if not already done
-#
-
 # Import statements
 from transaction import Transaction
 
@@ -31,7 +24,6 @@ class BankAccount:
    #
    #  @require: firstIn is between 1 and 25 characters inclusive and has no special characters
    #  @require: lastIn is between 1 and 40 characters inclusive and has no special characters
-   #  @require: balanceIn is a floating-point type
    #
    #  @ensure BankAccount object successfully created
    #  @ensure Overdraft counter set to 0
@@ -41,6 +33,7 @@ class BankAccount:
       assert len(firstIn) > 0 and len(firstIn) <= 25, "The first name must be a valid length."
       assert lastIn.isalpha(), "The last name must not contain any special characters."
       assert len(lastIn) > 0 and len(lastIn) <= 40, "The last name must be a valid length."
+      assert isinstance(balanceIn, float), "The balance must be a floating-point value."
       
       # Sets the instance variables
       self._firstName = firstIn
@@ -177,6 +170,8 @@ class BankAccount:
       # Returns the full amount of transactions as a String
       return(transList)
    
+   #@require amount > 0
+   #@return if the interest was added or not
    def calc_interest(self):
         # Hunter
         # Calculate and add interest to the account balance:
@@ -196,8 +191,9 @@ class BankAccount:
     return False
 
    # Deposits money into the account if the transaction is valid and records the transaction
+   # Boden
    #@param amount: the amount to be deposited
-   #@require amount is a number
+   #@require amount > 0
    #@return The success or failure of the deposit
    def deposit(self, amount):
        # Make sure the amount to deposit is not negative
@@ -213,6 +209,7 @@ class BankAccount:
    # Withdrawals money from the account if the transaction is valid and records the transaction; 
    # If the transaction is valid but the account will be overdrawn, applies an overdraft fee and 
    # updates the counter for overdraws
+   # Boden
    #@param amount: the amount to be withdrawn
    #@require amount > 0
    #@return The success or failure of the withdrawal
@@ -241,11 +238,3 @@ class BankAccount:
        else:
            print("Transaction denied")
        return False
-# test = BankAccount("Sara", "Mathews", 100.0)
-#print(test.transactionList())
-#print(test)
-#test.setFirst("Person")
-#test.setLast("Persona")
-#test._accountTransactions = [Transaction(1, 100), Transaction(2, 50)]
-#print(test.transactionList())
-#print(test)
