@@ -42,8 +42,8 @@ class BankAccount:
       self._firstName = firstIn
       self._lastName = lastIn
       self._accountNum = BankAccount._nextAccountVal
-      self._accountTransactions = []
-      self._overdrawnCount = 0
+      self._accountTransactions = [] # Container that stores all transactions
+      self._overdrawnCount = 0 # Counter for how many times an account is overdawn
       self._balance = balanceIn
       
       # Updates the next account value
