@@ -180,11 +180,11 @@ class BankAccount:
    def calc_interest(self):
         # Hunter
         # Calculate and add interest to the account balance:
-        if self.balance > 0:
-            interest_amount = self.balance * BankAccount.interest_rate
+        if self._balance > 0:
+            interest_amount = self._balance * BankAccount._intRate
             transaction = Transaction(interest_amount, "Interest")
             self.transactions.append(transaction)
-            self.balance += interest_amount
+            self._balance += interest_amount
             return True
         return False
    
