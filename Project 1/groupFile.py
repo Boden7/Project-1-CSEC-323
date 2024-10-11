@@ -27,6 +27,7 @@ class BankAccount:
    #
    #  @ensure BankAccount object successfully created
    #  @ensure Overdraft counter set to 0
+   # Anna
    def __init__(self, firstIn, lastIn, balanceIn = 0.0):
       # Assert statements for preconditions
       assert firstIn.isalpha(), "The first name must not contain any special characters."
@@ -49,36 +50,42 @@ class BankAccount:
    # An accessor/getter method for the overdraft fee
    #
    # @return: The overdraft fee (floating-point value)
+   # Anna
    def getOverdraft(self):
       return BankAccount._overdraftFee
    
    # An accessor/getter method for the interest rate
    #
    # @return: The interest rate in decimal form (floating-point value)
+   # Anna
    def getIntRate(self):
       return BankAccount._intRate
    
    # An accessor/getter method for the next account value
    #
    # @return: The next available account value (integer)
+   # Anna
    def getNextAccount(self):
       return BankAccount._nextAccountVal
    
    # An accessor/getter method for the first name
    #
    # @return: The first name associated with the Bank Account (String)
+   # Anna
    def getFirst(self):
       return self._firstName
    
    # An accessor/getter method for the last name
    #
    # @return: The last name associated with the Bank Account (String)
+   # Anna
    def getLast(self):
       return self._lastName
    
    # An accessor/getter method for the account number
    #
    # @return: The account number associated with the Bank Account (integer)
+   # Anna
    def getAccountNumber(self):
       return self._accountNum
    
@@ -86,12 +93,14 @@ class BankAccount:
    # overdrawn
    #
    # @return: The overdrawn counter associated with the Bank Account (integer)
+   # Anna
    def getOverdrawnCount(self):
       return self._overdrawnCount
    
    # An accessor/getter method for the account balance
    #
    # @return: The account balance associated with the Bank Account (String)
+   # Anna
    def getBalance(self):
       return self._balance
    
@@ -104,6 +113,7 @@ class BankAccount:
    # A private mutator/setter method for the interest rate
    #
    # @param newRate: The new interest rate in decimal form (Floating-point value)
+   # Anna
    def _setIntRate(self, newRate):
       BankAccount._intRate = newRate
       
@@ -112,6 +122,7 @@ class BankAccount:
    # @param first: The new first name for the Bank Account (String: default is an empty string)
    #
    # @require: first is between 1 and 25 characters inclusive and has no special characters   
+   # Anna
    def setFirst(self, first = ""):
       # Assert statements for preconditions
       assert first.isalpha(), "The first name must not contain any special characters."
@@ -124,6 +135,7 @@ class BankAccount:
    # @param last: The new last name for the Bank Account (String: default is an empty string)
    #
    # @require: last is between 1 and 40 characters inclusive and has no special characters   
+   # Anna
    def setLast(self, last = ""):
       # Assert statements for preconditions
       assert last.isalpha(), "The last name must not contain any special characters."
@@ -134,6 +146,7 @@ class BankAccount:
    # Returns a String representation of a Bank Account object
    #
    # @return: A String representation of the Bank Account object (String)
+   # Anna
    def __repr__(self):
       # Creating the list of valid transactions to print to the screen
       transactionVals = self.transactionList()
@@ -144,6 +157,7 @@ class BankAccount:
    # Returns a String representation of the transactions for a Bank Account object
    #
    # @return: A String representation of the transactions stored within a Bank Account object (String)
+   # Anna
    def transactionList(self):
       # If the transaction list is empty
       if(len(self._accountTransactions) == 0):
@@ -172,8 +186,9 @@ class BankAccount:
    
    #@require amount > 0
    #@return if the interest was added or not
+   # Hunter
    def calc_interest(self):
-        # Hunter
+        
         # Calculate and add interest to the account balance:
         if self._balance > 0:
             interest_amount = self._balance * BankAccount._intRate
@@ -183,7 +198,8 @@ class BankAccount:
             return True
         return False
    
-   # Transfer an amount of money from one account to anotherS
+   # Transfer an amount of money from one account to another
+   # Brenden
    def transfer(self, amount, otherAccount):
     if self.withdraw(amount):
         otherAccount.deposit(amount)
