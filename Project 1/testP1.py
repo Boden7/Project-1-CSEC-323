@@ -461,5 +461,17 @@ class TestP1(unittest.TestCase):
         # Ensure the balance was not updated
         self.assertEqual(self.testObject.getBalance(), 55.0)
 
+    # Anna
+    def test_equalityEquals(self):
+        # Checks if the equality method works on two objects that are the same
+        # (both have the same Account Number)
+        self.assertTrue(self.testObject == self.testObject)
+
+    # Anna
+    def test_equalityNotEquals(self):
+        # Checks if the equality method works on two objects that are different
+        # (both do not have the same Account Number)
+        self.assertFalse(self.testObject == self.testObject2)  
+
 if __name__ == '__main__':
     unittest.main()
