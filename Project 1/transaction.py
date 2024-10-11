@@ -121,6 +121,12 @@ class Transaction:
    # @return: The transaction type of the transaction
    def getTType(self) :
       return self._tType
+
+   # Anna
+   # Returns the next available transaction number
+   # @return: The next available transaction number
+   def getNextTNumber(self):
+       return Transaction._nextTransaction
    
    # Prints all of the transaction instance variables.
    def printTransaction(self):
@@ -137,6 +143,9 @@ class Transaction:
       return ("Transaction(tNumber = %d, amount = $%.2f, date = %s, tType = %s)" % (self._tNumber, self._amount, self._date, self._tType))
 
    # Define the mutator methods
+   # @require year: Must be greater than or equal to 2024
+   # @require month: Must be between 1 and 12 inclusive
+   # @require day: Must be between 1 and 31 inclusive
    # Helper method that sets the date for a transaction
    def _setDate(self):
       date = str(datetime.date.today())
