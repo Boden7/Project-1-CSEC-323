@@ -206,6 +206,7 @@ class BankAccount:
         if self._balance > 0:
             interest_amount = self._balance * BankAccount._intRate
             transaction = Transaction("interest", interest_amount)
+            # add interest to list of transactions
             self._accountTransactions.append(transaction)
             self._balance += interest_amount
             return True
@@ -220,6 +221,7 @@ class BankAccount:
     if self.withdraw(amount):
         otherAccount.deposit(amount)
         transaction = Transaction("transfer", amount)
+        # add transfer to list of transactions
         self._accountTransactions.append(transaction)
         return True
     return False
@@ -234,6 +236,7 @@ class BankAccount:
        if isinstance(amount, float) and amount > 0:
            # Process the transaction and update necessary variables
            depositTransaction = Transaction("deposit", amount)
+           # add deposit to list of transactions
            self._accountTransactions.append(depositTransaction)
            self._balance += amount
            return True
@@ -264,7 +267,7 @@ class BankAccount:
                self._balance -= self.getOverdraft()
                penaltyTransaction = Transaction("penalty", self.getOverdraft())
                self._accountTransactions.append(penaltyTransaction)
-               self._overdrawnCount = self.getOverdrawnCount() + 1
+               self._overdrawnCount = self.getOverdrawnCount() + 1 
                print("The account is overdrawn")
            return True
        # If the amount parameter was anything other than a number the transaction will be rejected
