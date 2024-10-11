@@ -265,7 +265,6 @@ class BankAccount:
                penaltyTransaction = Transaction("penalty", self.getOverdraft())
                self._accountTransactions.append(penaltyTransaction)
                self._overdrawnCount = self.getOverdrawnCount() + 1
-               #self.overdrawnCount += 1
                print("The account is overdrawn")
            return True
        # If the amount parameter was anything other than a number the transaction will be rejected
