@@ -10,7 +10,7 @@ class Transaction:
    _nextTransaction = 100 # A private class variable that hold the number of the next transaction
    DEBUG = False # A class constant that turns debugging printing on and off
    RESET_TNUMBER = True
-   _typeSet = {"deposit", "withdrawl", "interest", "transfer", "penalty"}
+   _typeSet = {"deposit", "withdrawal", "interest", "transfer", "penalty"}
    
    # Constructs a transaction.
    #  @param tType: the type of this transaction (String: default is an empty string)
@@ -131,14 +131,14 @@ class Transaction:
          print("Please enter the transaction type")
          print("Select from: ")
          print("   1 - Deposit")
-         print("   2 - Withdrawl")
+         print("   2 - Withdrawal")
          print("   3 - Interest Payment")
          print("   4 - Transfer", end = "")
          option = int(input(":"))
       if option == 1:
          tType = "deposit"
       elif option == 2:
-         tType = "withdrawl"
+         tType = "withdrawal"
       elif option == 3:
          tType = "interest"
       elif option == 4:
