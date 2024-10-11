@@ -140,8 +140,9 @@ class TestP1(unittest.TestCase):
         self.assertEqual(accountNum2, 1001)
 
     # Anna
-    def test_getOverdrawn(self):
-        # Determines the constructor's stored overdrawn counter
+    def test_getOverdrawnZero(self):
+        # Determines the constructor's stored overdrawn counter (with no 
+        # transactions, should be initialized to 0)
         overdrawnCount = self.testObject.getOverdrawnCount()
         
         # Ensures the original overdrawn counter is set to 0
