@@ -24,6 +24,7 @@ class BankAccount:
    #
    #  @require: firstIn is between 1 and 25 characters inclusive and has no special characters
    #  @require: lastIn is between 1 and 40 characters inclusive and has no special characters
+   #  @require: balanceIn is a floating-point type and is positive
    #
    #  @ensure BankAccount object successfully created
    #  @ensure Overdraft counter set to 0
@@ -35,6 +36,7 @@ class BankAccount:
       assert lastIn.isalpha(), "The last name must not contain any special characters."
       assert len(lastIn) > 0 and len(lastIn) <= 40, "The last name must be a valid length."
       assert isinstance(balanceIn, float), "The balance must be a floating-point value."
+      assert balanceIn >= 0.0, "The balance must be a positive value."
       
       # Sets the instance variables
       self._firstName = firstIn
@@ -107,12 +109,21 @@ class BankAccount:
    # A private mutator/setter method for the overdraft fee
    #
    # @param newFee: The new overdraft fee amount (Floating-point value)
+   #
+   # @require: newFee is a positive value that is an instance of a float
+   # Anna
    def _setOverdraft(self, newFee):
+      # Assert statements for preconditions
+      assert isinstance(newFee, float), "The overdraft fee must be a floating-point value."
+      assert newFee > 0, "The overdraft fee must be a positive value."
+    
       BankAccount._overdraftFee = newFee
       
    # A private mutator/setter method for the interest rate
    #
    # @param newRate: The new interest rate in decimal form (Floating-point value)
+   #
+   # @require: newRate is a positive value between 0 (exclusive) and 1 (inclusive) that is an instance of a float
    # Anna
    def _setIntRate(self, newRate):
       BankAccount._intRate = newRate
@@ -123,7 +134,7 @@ class BankAccount:
    #
    # @require: first is between 1 and 25 characters inclusive and has no special characters   
    # Anna
-   def setFirst(self, first = ""):
+   def setFirst(self):
       # Assert statements for preconditions
       assert first.isalpha(), "The first name must not contain any special characters."
       assert len(first) > 0 and len(first) <= 25, "The first name must be a valid length."      
@@ -136,7 +147,7 @@ class BankAccount:
    #
    # @require: last is between 1 and 40 characters inclusive and has no special characters   
    # Anna
-   def setLast(self, last = ""):
+   def setLast(self):
       # Assert statements for preconditions
       assert last.isalpha(), "The last name must not contain any special characters."
       assert len(last) > 0 and len(last) <= 40, "The last name must be a valid length."
@@ -184,8 +195,10 @@ class BankAccount:
       # Returns the full amount of transactions as a String
       return(transList)
    
-   #@require amount > 0
-   #@return if the interest was added or not
+   # Calculates the interest payment for an account, adds a new interest transaction
+   # to the account, and updates the account balance
+   # @require amount > 0
+   # @return if the interest was added or not
    # Hunter
    def calc_interest(self):
         
@@ -199,6 +212,9 @@ class BankAccount:
         return False
    
    # Transfer an amount of money from one account to another
+   # @param amount: The amount being transferred to the other account
+   # @param otherAccount: The account that is being transferred the money (if possible)
+   # @return: True if the money was able to be transferred and False if not
    # Brenden
    def transfer(self, amount, otherAccount):
     if self.withdraw(amount):
