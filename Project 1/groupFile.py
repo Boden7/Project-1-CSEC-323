@@ -134,7 +134,7 @@ class BankAccount:
    #
    # @require: first is between 1 and 25 characters inclusive and has no special characters   
    # Anna
-   def setFirst(self):
+   def setFirst(self, first):
       # Assert statements for preconditions
       assert first.isalpha(), "The first name must not contain any special characters."
       assert len(first) > 0 and len(first) <= 25, "The first name must be a valid length."      
@@ -147,7 +147,7 @@ class BankAccount:
    #
    # @require: last is between 1 and 40 characters inclusive and has no special characters   
    # Anna
-   def setLast(self):
+   def setLast(self, last):
       # Assert statements for preconditions
       assert last.isalpha(), "The last name must not contain any special characters."
       assert len(last) > 0 and len(last) <= 40, "The last name must be a valid length."
@@ -272,3 +272,17 @@ class BankAccount:
        else:
            print("Transaction denied")
        return False
+
+   # Compares two Bank Accounts to see if they are the same
+   #
+   # @param otherAccount: The account to compare the original Bank Account (self) to
+   #
+   # @return: True if the two Bank Accounts are equal, False if not
+   def __eq__(self, otherAccount):
+   # Compares the immutable variables of both Bank Accounts to test for
+   # equality
+       if(self._accountNum == otherAccount._accountNum):
+          return True
+       # If the comparisons aren't equal, then the Bank Accounts are not the same
+       else:
+          return False
