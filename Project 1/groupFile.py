@@ -282,6 +282,7 @@ class BankAccount:
    # @param otherAccount: The account to compare the original Bank Account (self) to
    #
    # @return: True if the two Bank Accounts are equal, False if not
+   # Anna
    def __eq__(self, otherAccount):
    # Compares the immutable variables of both Bank Accounts to test for
    # equality
