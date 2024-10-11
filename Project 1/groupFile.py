@@ -3,6 +3,13 @@
 #  This module defines the BankAccount class.
 #  A class to represent the data elements and methods required to implement a bank account.
 
+# TO DO
+# getAccountNumber and NextAccountGetterAndUpdate don't work because I am unsure how to "reset" instances to get everything back to account number 1,000
+# We need to add a tester for getOverdrawn when the overdrawn counter is greater than 0
+# We need to add testers for non-empty Transaction Lists (both BankAccount and TransactionList)
+# We need to add an __eq__ method for both Transaction and BankAccount, if not already done
+#
+
 # Import statements
 from transaction import Transaction
 
