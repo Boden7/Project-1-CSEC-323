@@ -177,8 +177,8 @@ class BankAccount:
         # Calculate and add interest to the account balance:
         if self._balance > 0:
             interest_amount = self._balance * BankAccount._intRate
-            transaction = Transaction(interest_amount, "Interest")
-            self.transactions.append(transaction)
+            transaction = Transaction("interest", interest_amount)
+            self._accountTransactions.append(transaction)
             self._balance += interest_amount
             return True
         return False
@@ -187,6 +187,8 @@ class BankAccount:
    def transfer(self, amount, otherAccount):
     if self.withdraw(amount):
         otherAccount.deposit(amount)
+        transaction = Transaction("transfer", amount)
+        self._accountTransactions.append(transaction)
         return True
     return False
 
@@ -201,7 +203,7 @@ class BankAccount:
            # Process the transaction and update necessary variables
            depositTransaction = Transaction("deposit", amount)
            self._accountTransactions.append(depositTransaction)
-           self.balance += amount
+           self._balance += amount
            return True
        # If anything was wrong with the amount parameter the transaction will be rejected
        return False
@@ -213,21 +215,21 @@ class BankAccount:
    #@param amount: the amount to be withdrawn
    #@require amount > 0
    #@return The success or failure of the withdrawal
-   def withdrawal(self, amount):
+   def withdraw(self, amount):
        # Make sure the amount to withdrawal is not negative
        if isinstance(amount, float) and amount <= 0:
            print("Transaction denied.")
        # Ensure the balance is at least $250 more than the withdrawal amount
-       if isinstance(amount, float) and amount < self.balance + 250.0:
+       if isinstance(amount, float) and amount < self.getBalance() + 250.0:
            # Process the transaction and update necessary variables
            withdrawalTransaction = Transaction("withdrawal", amount)
            self._accountTransactions.append(withdrawalTransaction)
-           self.balance -= amount
+           self._balance -= amount
            # If the withdrawal would put the balance in the negative, add an
            # overdraft fee and increment the overdrawn counter
-           if self.balance < 0.0:
+           if self.getBalance() < 0.0:
                # Process the transaction and update necessary variables
-               self.balance -= self.getOverdraft()
+               self._balance -= self.getOverdraft()
                penaltyTransaction = Transaction("penalty", self.getOverdraft())
                self._accountTransactions.append(penaltyTransaction)
                self._overdrawnCount = self.getOverdrawnCount() + 1
