@@ -31,6 +31,7 @@ class BankAccount:
    #
    #  @require: firstIn is between 1 and 25 characters inclusive and has no special characters
    #  @require: lastIn is between 1 and 40 characters inclusive and has no special characters
+   #  @require: balanceIn is a floating-point type
    #
    #  @ensure BankAccount object successfully created
    #  @ensure Overdraft counter set to 0
