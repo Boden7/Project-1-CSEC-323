@@ -21,6 +21,8 @@ class Transaction:
    
    def __init__(self, tType = "", amount = 0.0) :
       
+      assert(isinstance(amount, float))
+      assert(isinstance(tType, str))
       assert amount >= 0
       assert tType in Transaction._typeSet
       
@@ -85,6 +87,21 @@ class Transaction:
 
    # Define the accessor methods
    
+   # getDay returns the day of the transaction.
+   # @return: The day of the transaction
+   def getDay(self):
+      return self._day
+
+   # getMonth returns the month of the transaction.
+   # @return: The month of the transaction
+   def getMonth(self):
+      return self._month
+   
+   # getYear returns the year of the transaction.
+   # @return: The year of the transaction
+   def getYear(self):
+      return self._year
+
    # getAmount returns the amount of the transaction.
    # @return: The amount of the transaction 
    def getAmount(self) :
@@ -120,51 +137,17 @@ class Transaction:
       return ("Transaction(tNumber = %d, amount = $%.2f, date = %s, tType = %s)" % (self._tNumber, self._amount, self._date, self._tType))
 
    # Define the mutator methods
-   
-   # Mutator method that sets the transaction type for a transaction
-   # @ensure tType: must be Deposit, Withdrawal, Interest, Transfer, or Penalty.
-   def setTType(self):
-      optionSet = {1, 2, 3, 4}
-      
-      option = None
-      while option not in optionSet:
-         print("Please enter the transaction type")
-         print("Select from: ")
-         print("   1 - Deposit")
-         print("   2 - Withdrawal")
-         print("   3 - Interest Payment")
-         print("   4 - Transfer", end = "")
-         option = int(input(":"))
-      if option == 1:
-         tType = "deposit"
-      elif option == 2:
-         tType = "withdrawal"
-      elif option == 3:
-         tType = "interest"
-      elif option == 4:
-         tType = "transfer"      
-      else:
-         print("Invalid input")
-         tType = none
-      self._tType = tType
-      return
-
-   # Mutator method that sets the amount for a transaction
-   # @ensure self._amount >= 0
-   def setAmount(self):
-      amount = int(input("Please enter an amount (positive) for the transaction:"))
-      while amount < 0:
-         amount = int(input("Please enter an amount (positive) for the transaction:"))
-      self._amount = amount
-      return 
-
    # Helper method that sets the date for a transaction
    def _setDate(self):
       date = str(datetime.date.today())
       self._date = date
       date = date.split("-")
+      assert(date[0] >= 2024)
+      assert(date[1] >= 1)
+      assert(date[1] <= 12)
+      assert(date[2] >= 1)
+      assert(date[2] <= 31)
       self._year = date[0]
       self._month = date[1]
       self._day = date[2]
-
       return 
