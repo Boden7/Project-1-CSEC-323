@@ -72,9 +72,9 @@ class Transaction:
    def __add__(self, other) :
       return (self._amount + other._amount)
    
-   # adds an transaction to the second transaction.
-   #  @param other: the transaction your are adding the first transaction to
-   #  @return result: the sum of the two transaction amounts
+   #  Subtracts a second transaction from the first transaction
+   #  @param other: the transaction you are subtracting from the first transaction
+   #  @return result: the subtraction of the two transaction amounts
    
    def __sub__(self, other) :
       return (self._amount - other._amount)
