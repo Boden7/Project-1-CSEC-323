@@ -5,6 +5,8 @@ from groupFile import BankAccount
 
 class TestP1(unittest.TestCase):
     def setUp(self):
+        #Resets the bank account number for each test
+        BankAccount._nextAccountVal = 1000
         # Constructs an empty BankAccount object
         # Parameters: First name = "First", Last name = "Last", Balance = 500.0,
         # Account Transactions = [], Overdrawn Count = 0, Account Number = 1000
@@ -12,7 +14,7 @@ class TestP1(unittest.TestCase):
         
         # Constructs a valid BankAccount object with no balance parameter
         # Parameters: First name = "First", Last name = "Last", Balance = 0.0,
-        # Account Transactions = [], Overdrawn Count = 0, Account Number = 1000        
+        # Account Transactions = [], Overdrawn Count = 0, Account Number = 1001        
         self.testObject2 = BankAccount("First", "Last")        
 
     def test_ConstructorValid(self):
@@ -162,55 +164,153 @@ class TestP1(unittest.TestCase):
         
         # Ensures both values are the same
         self.assertEqual(strVal, strCheck)
+
+    # Tests to see if the interest application works under normal conditions
+    def testInterest(self):
+        # Initalize balance to be greater than 0
+        self.testObject._balance = 100.0
+        # Make sure the interest addition is successful
+        self.assertEqual(self.testObject.calc_interest(), True)
+        # Make sure the balance did update to the correct amount
+        self.assertEqual(self.testObject.getBalance(), 107.5)
+    
+    # Tests to see if the interest application fails when preconditions aren't met
+    def testInterestFailed(self):
+        # Initalize balance to be  0
+        self.testObject._balance = 0
+        # Make sure the interest addition is not successful
+        self.assertEqual(self.testObject.calc_interest(), False)
+        # Make sure the balance did not update
+        self.assertEqual(self.testObject.getBalance(), 0)
         
-        
-    def testDeposit(self):
-        self.testObject.balance = 0.0
-        result = self.testObject.deposit(3.0)
+    # Tests the transfer method to ensure everything works under proper conditions
+    def testTransfer(self):
+        # Initalize balance of account 1 to be 1000
+        self.testObject._balance = 1000.0
+        # Initalize balance of account 2 to be 700
+        self.testObject2._balance = 700.0
+        # Attempt the transfer for a valid amount
+        result = self.testObject.transfer(500.0, self.testObject2)
+        # Ensure the transfer was successful
         self.assertEqual(result, True)
-        self.assertEqual(self.testObject.balance, 3.0)
+        # Ensure the balance is correctly updated for account 1
+        self.assertEqual(self.testObject.getBalance(), 500.0)
+        # Ensure the balance is correctly updated for account 2
+        self.assertEqual(self.testObject2.getBalance(), 1200.0)
 
+    # Tests the transfer method to ensure method reject
+    def testTransferFailed(self):
+        # Initalize balance of account 1 to be 1000
+        self.testObject._balance = 1000.0
+        # Initalize balance of account 2 to be 700
+        self.testObject2._balance = 700.0
+        # Attempt the transfer for a valid amount
+        result = self.testObject.transfer(10000.0, self.testObject2)
+        # Ensure the transfer was not successful
+        self.assertEqual(result, False)
+        # Ensure the balance is not updated for account 1
+        self.assertEqual(self.testObject.getBalance(), 1000.0)
+        # Ensure the balance is not updated for account 2
+        self.assertEqual(self.testObject2.getBalance(), 700.0)
+
+    # Tests the transfer method to ensure method reject
+    def testTransferFailedInput(self):
+        # Initalize balance of account 1 to be 1000
+        self.testObject._balance = 1000
+        # Initalize balance of account 2 to be 700
+        self.testObject2._balance = 700
+        # Attempt the transfer for a valid amount
+        result = self.testObject.transfer("A", 37)
+        # Ensure the transfer was not successful
+        self.assertEqual(result, False)
+        # Ensure the balance is not updated for account 1
+        self.assertEqual(self.testObject.getBalance(), 1000)
+        # Ensure the balance is not updated for account 2
+        self.assertEqual(self.testObject2.getBalance(), 700)
+
+
+    # Tests the deposit method to ensure it functions normally    
+    def testDeposit(self):
+        # Initialize balance to 0
+        self.testObject._balance = 0.0
+        # Add three to the balance
+        result = self.testObject.deposit(3.0)
+        # Ensure the deposit was successful
+        self.assertEqual(result, True)
+        # Ensure the balance is correctly updated
+        self.assertEqual(self.testObject.getBalance(), 3.0)
+
+    # Tests the deposit method to ensure it rejects an incorrect input (number)
     def testFailedDeposit(self):
-        self.testObject.balance = -70.0
+        # Set the balance to a valid number
+        self.testObject._balance = -70.0
+        # Attempt to deposit a negative number
         result = self.testObject.deposit(-50.0)
+        # Ensure the deposit did not occur
         self.assertEqual(result, False)
-        self.assertEqual(self.testObject.balance, -70.0)
+        # Ensure the balance remained unchanged
+        self.assertEqual(self.testObject.getBalance(), -70.0)
 
+    # Tests the deposit method to ensure it rejects an incorrect input (string)
     def testFailedDepositInput(self):
-        self.testObject.balance = -70.0
+        # Set the balance to a valid number
+        self.testObject._balance = -70.0
+        # Attempt to deposit a string
         result = self.testObject.deposit("a")
+        # Ensure the deposit did not occur
         self.assertEqual(result, False)
-        self.assertEqual(self.testObject.balance, -70.0)
-
+        # Ensure the balance remained unchanged
+        self.assertEqual(self.testObject.getBalance(), -70.0)
 
     def testOverdraft(self):
-        self.testObject.balance = 100.0
-        result = self.testObject.withdrawal(150.0)
+        # Set the balance to a valid number
+        self.testObject._balance = 100.0
+        # Attempt to withdraw a valid amount that will cause an overdraft
+        result = self.testObject.withdraw(150.0)
+        # Ensure the withdrawal was successful
         self.assertEqual(result, True)
-        self.assertEqual(self.testObject.balance, -70.0)
+        # Ensure the balance was updated correctly
+        self.assertEqual(self.testObject.getBalance(), -70.0)
 
     def testOverdrawnCount(self):
+        # Ensure overdraft counter is 0
+        self.assertEqual(self.testObject.getOverdrawnCount(), 0)
+        # Set the balance to a valid number
+        self.testObject._balance = 40.0
+        # Attempt to withdraw a valid amount that will cause an overdraft
+        self.testObject.withdraw(150.0)
+        # Ensure overdraft counter is updated
         self.assertEqual(self.testObject.getOverdrawnCount(), 1)
-        self.testObject.balance = 40.0
-        result = self.testObject.withdrawal(150.0)
-        self.assertEqual(self.testObject.getOverdrawnCount(), 2)
 
     def testWithdrawal(self):
-        self.testObject.balance = 1000.0
-        result = self.testObject.withdrawal(500.0)
+        # Set the balance to a valid number
+        self.testObject._balance = 1000.0
+        # Attempt to withdraw a valid amount that will not cause an overdraft
+        result = self.testObject.withdraw(500.0)
+        # Ensure the withdrawal was successful
         self.assertEqual(result, True)
-        self.assertEqual(self.testObject.balance, 500.0)
+        # Ensure the balance was updated correctly
+        self.assertEqual(self.testObject.getBalance(), 500.0)
         
     def testFailedWithdrawal(self):
-        self.testObject.balance = 500.0
-        result = self.testObject.withdrawal(10000.0)
+        # Set the balance to a valid number
+        self.testObject._balance = 500.0
+        # Attempt to withdraw an invalid amount
+        result = self.testObject.withdraw(10000.0)
+        # Ensure the withdrawal was unsuccessful
         self.assertEqual(result, False)
-        self.assertEqual(self.testObject.balance, 500.0)
+        # Ensure the balance was not updated
+        self.assertEqual(self.testObject.getBalance(), 500.0)
         
     def testFailedWithdrawalInput(self):
-        self.testObject.balance = 55.0
-        result = self.testObject.withdrawal("a")
+        # Set the balance to a valid number
+        self.testObject._balance = 55.0
+        # Attempt to withdraw with an invalid input
+        result = self.testObject.withdraw("a")
+        # Ensure the withdrawal was unsuccessful
         self.assertEqual(result, False)
-        self.assertEqual(self.testObject.balance, 55.0)
+        # Ensure the balance was not updated
+        self.assertEqual(self.testObject.getBalance(), 55.0)
+
 if __name__ == '__main__':
     unittest.main()
