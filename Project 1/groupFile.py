@@ -258,6 +258,7 @@ class BankAccount:
        if isinstance(amount, float) and amount < self.getBalance() + 250.0:
            # Process the transaction and update necessary variables
            withdrawalTransaction = Transaction("withdrawal", amount)
+           # add withdrawal to list of transactions
            self._accountTransactions.append(withdrawalTransaction)
            self._balance -= amount
            # If the withdrawal would put the balance in the negative, add an
@@ -266,6 +267,7 @@ class BankAccount:
                # Process the transaction and update necessary variables
                self._balance -= self.getOverdraft()
                penaltyTransaction = Transaction("penalty", self.getOverdraft())
+               # add penalty to list of transactions
                self._accountTransactions.append(penaltyTransaction)
                self._overdrawnCount = self.getOverdrawnCount() + 1 
                print("The account is overdrawn")
