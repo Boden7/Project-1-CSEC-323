@@ -142,11 +142,11 @@ class Transaction:
       date = str(datetime.date.today())
       self._date = date
       date = date.split("-")
-      assert(date[0] >= 2024)
-      assert(date[1] >= 1)
-      assert(date[1] <= 12)
-      assert(date[2] >= 1)
-      assert(date[2] <= 31)
+      assert(int(date[0]) >= 2024)
+      assert(int(date[1]) >= 1)
+      assert(int(date[1]) <= 12)
+      assert(int(date[2]) >= 1)
+      assert(int(date[2]) <= 31)
       self._year = date[0]
       self._month = date[1]
       self._day = date[2]
