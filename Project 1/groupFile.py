@@ -168,6 +168,17 @@ class BankAccount:
       
       # Returns the full amount of transactions as a String
       return(transList)
+   
+   def calc_interest(self):
+        # Hunter
+        # Calculate and add interest to the account balance:
+        if self.balance > 0:
+            interest_amount = self.balance * BankAccount.interest_rate
+            transaction = Transaction(interest_amount, "Interest")
+            self.transactions.append(transaction)
+            self.balance += interest_amount
+            return True
+        return False
 
 # test = BankAccount("Sara", "Mathews", 100.0)
 #print(test.transactionList())
