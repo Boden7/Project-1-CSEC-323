@@ -18,13 +18,13 @@ class Transaction:
    #  @ensure self._amount >= 0
    #  @ensure tType is in the set {"deposit", "withdrawl", "interest", "transfer", "penalty"}
    #  @ensure date is a valid date
-   
+   # Boden
    def __init__(self, tType = "", amount = 0.0) :
-      
-      assert(isinstance(amount, float))
-      assert(isinstance(tType, str))
-      assert amount >= 0
-      assert tType in Transaction._typeSet
+      # Assert statements for preconditions
+      assert(isinstance(amount, float)), "The amount must be a floating-point value."
+      assert amount >= 0, "The amount must be a positive numerical value."
+      assert(isinstance(tType, str)), "The transaction type must be a String value."
+      assert tType in Transaction._typeSet, "The transaction type must be a valid type."
       
       if Transaction.DEBUG:
          print ("Creating a new transaction")
@@ -50,39 +50,40 @@ class Transaction:
    # Define the Special Methods Needed
 
    # Checks an transaction to see if it is equal to the second transaction.
-   #  @param other: the transaction your are comparing the first transaction with
-   #  @return result: True if this two transaction have the same amount and dates, and tNumber
-   
+   #  @param other: the transaction you are comparing the first transaction with
+   #  @return result: True if the two transaction have the same amount, date, and tNumber and False if not
    def __eq__(self, other) :
+      # Compares the immutable values of the transactions to check for equality
       result = (self._amount == other._amount) and (self._date == other._date) and (self._tNumber == other._tNumber)
       return result 
     
-   # Checks an transaction to see if it is not equal to the second transaction.
-   #  @param other: the transaction your are comparing the first transaction with
-   #  @return result: True if this two transaction have the same amount and dates, and tNumber
-   
+   # Checks a transaction to see if it is not equal to the second transaction.
+   #  @param other: the transaction you are comparing the first transaction with
+   #  @return result: True if these two transactions do not have the same amount, dates, and tNumber and False if they do
    def __ne__(self, other) :
+    # Compares the immutable values of the transactions to check inequality
       result = (self._amount != other._amount) or (self._date != other._date) or (self._tNumber != other._tNumber)
       return result 
   
    # adds an transaction to the second transaction.
    #  @param other: the transaction your are adding the first transaction to
    #  @return result: the sum of the two transaction prices
-   
    def __add__(self, other) :
+      # Adds the two transaction amounts and returns the resulting floating-point value
       return (self._amount + other._amount)
    
    #  Subtracts a second transaction from the first transaction
    #  @param other: the transaction you are subtracting from the first transaction
    #  @return result: the subtraction of the two transaction amounts
-   
    def __sub__(self, other) :
+      # Subtracts the floating-point value of other from self and returns the resulting floating-point value
       return (self._amount - other._amount)
 
    # implements the sum() function that will sum a list of the Transactions
    #  @param other: the transaction your are adding to the sum
    #  @return: the sum of the transaction amounts in the list
    def __radd__(self, other):
+      # Adds each amount to a running total in succession
       return other + self._amount
 
    # Define the accessor methods
