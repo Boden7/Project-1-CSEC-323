@@ -1,7 +1,11 @@
-# @author Anna Pitt
- 
-#  This module defines the BankAccount class.
-#  A class to represent the data elements and methods required to implement a bank account.
+""" 
+Creation of the BankAccount class
+@author: Anna Pitt, Boden Kahn, Hunter Peacock, Brenden Shelton, Ziki Nodurft
+@date: October 11, 2024
+
+This module defines the BankAccount class.
+A class to represent the data elements and methods required to implement a bank account.
+"""
 
 # Import statements
 from transaction import Transaction
