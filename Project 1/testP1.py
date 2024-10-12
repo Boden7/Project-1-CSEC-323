@@ -18,7 +18,7 @@ class TestP1(unittest.TestCase):
         # Account Transactions = [], Overdrawn Count = 0, Account Number = 1001        
         self.testObject2 = BankAccount("First", "Last")        
 
-        def test_ConstructorValid(self):
+    def test_ConstructorValid(self):
         # Ensures the BankAccount object was made
         self.assertTrue(isinstance(self.testObject, BankAccount))
 
