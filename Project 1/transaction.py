@@ -13,7 +13,7 @@ class Transaction:
    _typeSet = {"deposit", "withdrawal", "interest", "transfer", "penalty"}
    
    # Constructs a transaction.
-   #  @param tType: the type of this transaction (String: default is an empty string)
+   #  @param tType: the type of this transaction (String)
    #  @param amount: the amount of this transaction (Floating point: default is 0.0, must be a positive float)
    #  @ensure self._amount >= 0
    #  @ensure tType is in the set {"deposit", "withdrawl", "interest", "transfer", "penalty"}
