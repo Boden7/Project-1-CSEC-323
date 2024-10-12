@@ -126,6 +126,10 @@ class BankAccount:
    # @require: newRate is a positive value between 0 (exclusive) and 1 (inclusive) that is an instance of a float
    # Anna
    def _setIntRate(self, newRate):
+      # Assert statements for preconditions
+      assert isinstance(newRate, float), "The interest rate must be a floating-point value."
+      assert newRate > 0.0 and newRate <= 1.0, "The interest rate must be a decimal value between 0 (exclusive) and 1 (inclusive)."
+    
       BankAccount._intRate = newRate
       
    # A mutator/setter method for the first name
