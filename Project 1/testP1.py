@@ -1,6 +1,6 @@
 """ 
 Creation of the BankAccount tester
-@author: Anna Pitt, Boden Kahn, Hunter Peacock, Brenden Shelten, Ziki Nordurft
+@author: Anna Pitt, Boden Kahn
 @date: October 11, 2024
 
 Import the unittest module and the BankAccount module
