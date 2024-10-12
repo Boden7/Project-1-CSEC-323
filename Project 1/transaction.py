@@ -9,7 +9,7 @@ class Transaction:
    
    _nextTransaction = 100 # A private class variable that hold the number of the next transaction
    DEBUG = False # A class constant that turns debugging printing on and off
-   RESET_TNUMBER = True
+   RESET_TNUMBER = False # Ensures that transaction numbers don't reset each call
    _typeSet = {"deposit", "withdrawal", "interest", "transfer", "penalty"}
    
    # Constructs a transaction.
