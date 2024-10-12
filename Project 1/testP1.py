@@ -1,5 +1,11 @@
-# @author Boden Kahn, Anna Pitt
-# Date: 10/11/24
+""" 
+Creation of the BankAccount tester
+@author: Anna Pitt, Boden Kahn, Hunter Peacock, Brenden Shelten, Ziki Nordurft
+@date: October 11, 2024
+
+Import the unittest module and the BankAccount module
+Test each method with at least one unit test
+"""
 import unittest
 from groupFile import BankAccount
 
