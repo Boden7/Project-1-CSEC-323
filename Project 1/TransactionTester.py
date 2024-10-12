@@ -2,7 +2,7 @@
 Simple Unit Test Example using Python's unittest module and assertions
 @author: John McManus
 Edited by Anna Pitt
-@date: March 19, 2021
+@date: October 11, 2024
 
 Import the unittest module and the Transaction module
 Test each method with at least one unit test
