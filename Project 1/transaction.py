@@ -1,9 +1,15 @@
-# @author John McManus
+""" 
+Implementation of the Transaction class
+@author: John McManus
+Edited by Anna Pitt and Boden Kahn
+@date: October 11, 2024
+
+This module defines the Transaction class.
+A class to represent the data elements and methods required to implement a back account transaction.
+"""
+
 # import the datetime class used to get today's date
 import datetime
- 
-#  This module defines the Transaction class.
-#  A class to represent the data elements and methods required to implement a back account transaction.
 
 class Transaction:
    
