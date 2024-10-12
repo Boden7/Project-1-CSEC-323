@@ -11,7 +11,7 @@ Test each method with at least one unit test
 import unittest
 from unittest.mock import patch
 from datetime import datetime
-from transactionEdited import Transaction
+from transaction import Transaction
 
 """ Define test testTransaction class by extending the unittest.TestCase class"""
 
